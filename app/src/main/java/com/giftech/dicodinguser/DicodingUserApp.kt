@@ -24,7 +24,13 @@ fun DicodingUserApp(
         modifier = Modifier
     ){
         composable(Screen.Home.route){
-            HomeScreen()
+            HomeScreen(
+                onClickItem = {
+
+                },
+                onAboutClick = {
+                }
+            )
         }
     }
 }
