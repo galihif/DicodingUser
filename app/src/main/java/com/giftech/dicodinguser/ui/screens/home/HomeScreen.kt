@@ -9,44 +9,28 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.giftech.dicodinguser.di.Injection
 import com.giftech.dicodinguser.model.User
+import com.giftech.dicodinguser.ui.ViewModelFactory
+import com.giftech.dicodinguser.ui.common.UiState
 import com.giftech.dicodinguser.ui.theme.DicodingUserTheme
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
     onClickItem: (Int) -> Unit,
-    onAboutClick: () -> Unit
+    onAboutClick: () -> Unit,
+    viewModel: HomeViewModel = viewModel(
+        factory = ViewModelFactory(Injection.provideRepository())
+    ),
 ) {
-    val users = listOf(
-        User(
-            id = 1,
-            name = "John Doe",
-            imageUrl = "https://randomuser.me/api/portraits/women/1.jpg",
-            university = "University of California, Berkeley",
-            numCertificationsCompleted = 5
-        ),
-        User(
-            id = 2,
-            name = "Jane Doe",
-            imageUrl = "https://randomuser.me/api/portraits/men/1.jpg",
-            university = "University of California, Los Angeles",
-            numCertificationsCompleted = 3
-        ),
-        User(
-            id = 3,
-            name = "Alice Smith",
-            imageUrl = "https://i.pravatar.cc/150?img=1",
-            university = "Stanford University",
-            numCertificationsCompleted = 7
-        )
-    )
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -63,7 +47,15 @@ fun HomeScreen(
             )
         }
     ) {
-        HomeContent(users = users, onClickItem = onClickItem)
+        viewModel.uiState.collectAsState().value.let {
+            when(it){
+                is UiState.Error -> {}
+                UiState.Loading -> viewModel.getAllUser()
+                is UiState.Success -> {
+                    HomeContent(users = it.data, onClickItem = onClickItem)
+                }
+            }
+        }
     }
 }
 
