@@ -35,8 +35,8 @@ class MainRepository {
         return flowOf(dummyUser)
     }
 
-    fun getUserById(userId: Int): User? {
-        return dummyUser.firstOrNull { it.id == userId }
+    fun getUserById(userId: Int): User {
+        return dummyUser.first { it.id == userId }
     }
 
     companion object {
