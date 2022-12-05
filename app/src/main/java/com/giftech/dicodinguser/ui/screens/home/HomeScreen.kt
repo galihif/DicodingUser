@@ -41,9 +41,7 @@ fun HomeScreen(
                     Text("Home")
                 },
                 actions = {
-                    IconButton(onClick = {
-                        // Show profile screen
-                    }) {
+                    IconButton(onClick = onAboutClick) {
                         Icon(imageVector = Icons.Default.Person, contentDescription = "")
                     }
                 }
