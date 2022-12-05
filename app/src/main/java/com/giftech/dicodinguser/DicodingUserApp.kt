@@ -1,6 +1,5 @@
 package com.giftech.dicodinguser
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -11,6 +10,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.giftech.dicodinguser.ui.navigation.Screen
+import com.giftech.dicodinguser.ui.screens.about.AboutScreen
 import com.giftech.dicodinguser.ui.screens.detail.DetailScreen
 import com.giftech.dicodinguser.ui.screens.home.HomeScreen
 
@@ -32,6 +32,7 @@ fun DicodingUserApp(
                     navController.navigate(Screen.DetailUser.createRoute(it))
                 },
                 onAboutClick = {
+                    navController.navigate(Screen.About.route)
                 }
             )
         }
@@ -43,6 +44,11 @@ fun DicodingUserApp(
             DetailScreen(
                 onBack = { navController.popBackStack() },
                 userId = id
+            )
+        }
+        composable(Screen.About.route){
+            AboutScreen(
+                onBack = {navController.popBackStack()}
             )
         }
     }
