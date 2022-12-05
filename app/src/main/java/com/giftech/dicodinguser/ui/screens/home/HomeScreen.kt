@@ -100,7 +100,7 @@ fun UserItem(user: User, onClickItem: (Int) -> Unit) {
         ) {
             Text(text = user.name)
             Text(
-                text = "${user.university} • ${user.numCertificationsCompleted} certifications",
+                text = user.university,
                 style = MaterialTheme.typography.body2
             )
         }
