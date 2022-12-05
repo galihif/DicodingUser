@@ -42,7 +42,7 @@ fun HomeScreen(
                 },
                 actions = {
                     IconButton(onClick = onAboutClick) {
-                        Icon(imageVector = Icons.Default.Person, contentDescription = "")
+                        Icon(imageVector = Icons.Default.Person, contentDescription = "about_page")
                     }
                 }
             )
